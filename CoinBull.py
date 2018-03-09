@@ -9,6 +9,10 @@ def hello_world():
 def page_not_here_yet():
 	return 'Sorry I have not made this page yet!'
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/user/<username>')
 def get_username(username):
 	return "User: {}".format(username)

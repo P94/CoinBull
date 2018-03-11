@@ -1,4 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
-<p>Hello</p>
+
+{% if crypto_objects %}
+	<h3>You are tracking the following currencies:</h3>
+	{% for crypto_object in crypto_objects %}
+		<div>
+			<p>
+				Name: {{crypto_object.name}}<br>
+				Ticker: {{crypto_object.ticker}}<br>
+				Current Price: {{crypto_object.price}}<br>
+			</p>
+		</div>
+	{% endfor %}
+{% endif %}
+
 {% endblock %}

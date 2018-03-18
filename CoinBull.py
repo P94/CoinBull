@@ -15,6 +15,10 @@ cryptos = {
 		'ticker': 'ETH',
 		'picture_url': 'ether.png'
 		},
+	'Bitcoin Cash': {
+		'ticker': 'BCH',
+		'picture_url': 'bitcoin_cash.png'
+		},
 	}
 
 public_client = gdax.PublicClient()
@@ -31,7 +35,12 @@ class Currency(object):
 		price_only = price_info.get('price')
 		price_two_decimal = price_only[:-6]
 		self.price = price_two_decimal
-		return self.price
+
+	def get_42hr_stats(self):
+		stats_24_hour = public_client.get_product_24hr_stats(self.usd_product)
+		self.volume_24hr = stats_24_hour.get("volume")[:-6]
+		self.high_24hr = stats_24_hour.get("high")[:-6]
+		self.low_24hr = stats_24_hour.get("low")[:-6]
 
 @app.route('/')
 def index():
@@ -41,6 +50,7 @@ def index():
 		picture_url = attributes.get('picture_url')
 		crypto_object = Currency(name, ticker, picture_url)
 		crypto_object.get_price()
+		crypto_object.get_42hr_stats()
 		crypto_objects.append(crypto_object)
 	return render_template('index.html', crypto_objects=crypto_objects)
 

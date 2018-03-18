@@ -2,16 +2,24 @@
 {% block body %}
 
 {% if crypto_objects %}
-	<h3>You are tracking the following currencies:</h3>
+	<div class="container">
+	<h3>Welcome, here are the stats for your crypto currencies.</h3>
+	<div class="row">
 	{% for crypto_object in crypto_objects %}
-		<div>
+			<div class="col">
+			<h4>
+				{{crypto_object.name}} ({{crypto_object.ticker}})
+			</h4>
 			<p>
-				Name: {{crypto_object.name}}<br>
-				Ticker: {{crypto_object.ticker}}<br>
 				Current Price: {{crypto_object.price}}<br>
+				24 Hour High: {{crypto_object.high_24hr}}<br>
+				24 Hour Low: {{crypto_object.low_24hr}}<br>
+				24 Hour Volume: {{crypto_object.volume_24hr}}<br>
 			</p>
-		</div>
+			</div>
 	{% endfor %}
+	</div>
+	</div>
 {% endif %}
 
 {% endblock %}

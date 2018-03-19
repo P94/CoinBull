@@ -8,7 +8,7 @@
 	{% for crypto_object in crypto_objects %}
 			<div class="col">
 			<h4>
-				{{crypto_object.name}} ({{crypto_object.ticker}})
+				<a href="{{crypto_object.url}}">{{crypto_object.name}} ({{crypto_object.ticker}})</a>
 			</h4>
 			<p>
 				Current Price: {{crypto_object.price}}<br>

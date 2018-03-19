@@ -7,11 +7,11 @@ cryptos = {
 		'ticker': 'BTC',
 		'picture_url': 'bitcoin.png'
 		},
-	'LiteCoin': {
+	'Litecoin': {
 		'ticker': 'LTC',
 		'picture_url': 'litecoin.png'
 		},
-	'Ether': {
+	'Ethereum': {
 		'ticker': 'ETH',
 		'picture_url': 'ether.png'
 		},
@@ -42,6 +42,10 @@ class Currency(object):
 		self.high_24hr = stats_24_hour.get("high")[:-6]
 		self.low_24hr = stats_24_hour.get("low")[:-6]
 
+	def get_url(self):
+		url = "https://www.gdax.com/trade/{0}".format(self.usd_product)
+		self.url = url
+
 @app.route('/')
 def index():
 	crypto_objects = []
@@ -51,6 +55,7 @@ def index():
 		crypto_object = Currency(name, ticker, picture_url)
 		crypto_object.get_price()
 		crypto_object.get_42hr_stats()
+		crypto_object.get_url()
 		crypto_objects.append(crypto_object)
 	return render_template('index.html', crypto_objects=crypto_objects)
 

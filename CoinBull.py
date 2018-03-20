@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import gdax
+import sqlalchemy
 app = Flask(__name__)
 
 cryptos = {
@@ -70,3 +71,6 @@ def about():
 @app.route('/user/<username>')
 def get_username(username):
 	return "User: {}".format(username)
+
+if __name__ == "__main__":
+	app.run(debug=True)

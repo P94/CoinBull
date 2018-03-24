@@ -1,4 +1,6 @@
 import gdax
+from flask_login import UserMixin
+#from app import login
 
 public_client = gdax.PublicClient()
 
@@ -30,3 +32,6 @@ class Currency(object):
 	def get_url(self):
 		url = "https://www.gdax.com/trade/{0}".format(self.usd_product)
 		self.url = url
+
+class User(UserMixin):
+	pass

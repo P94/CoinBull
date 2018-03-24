@@ -1,13 +1,12 @@
-from flask import Flask, render_template
-
-from flask.ext.sqlalchemy import SQLAlchemy
-
-from modules import Currency
+from flask import Flask, render_template, flash, redirect, url_for, request
+from flask_sqlalchemy import SQLAlchemy
+from modules import Currency, User
+from forms import LoginForm
+from flask_login import LoginManager
 
 app = Flask(__name__)
-
+login = LoginManager(app)
 app.config.from_object('config')
-
 db = SQLAlchemy(app)
 
 ## Configuration for what crypto currencies to track ##
@@ -44,6 +43,15 @@ def index():
 		crypto_objects.append(crypto_object)
 	return render_template('index.html', crypto_objects=crypto_objects)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login requested for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data))
+        return redirect('/')
+    return render_template('login.html', title='Sign In', form=form)
+
 @app.route('/sorry')
 def page_not_here_yet():
 	return 'Sorry I have not made this page yet!'
@@ -51,10 +59,3 @@ def page_not_here_yet():
 @app.route('/about')
 def about():
     return render_template('about.html')
-
-@app.route('/user/<username>')
-def get_username(username):
-	return "User: {}".format(username)
-
-if __name__ == "__main__":
-	app.run(debug=True)

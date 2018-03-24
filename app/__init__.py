@@ -2,7 +2,9 @@ from flask import Flask, render_template
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
-import gdax
+#import gdax
+
+from modules import Currency
 
 app = Flask(__name__)
 
@@ -31,8 +33,9 @@ cryptos = {
 	}
 
 ## public client to handle connections to GDAX ##
-public_client = gdax.PublicClient()
+#public_client = gdax.PublicClient()
 
+'''
 class Currency(object):
 	"""
 	This class holds all crypto currency information
@@ -61,6 +64,7 @@ class Currency(object):
 	def get_url(self):
 		url = "https://www.gdax.com/trade/{0}".format(self.usd_product)
 		self.url = url
+'''
 
 ## Home page that displays basic price information ##
 @app.route('/')

@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+{% block body %}
+<h1 class="text-danger">404</h1>
+<p>Page not found<p>
+<form>
+  <input type="button" value="Go back!" onclick="history.back()" class="btn btn-secondary">
+</form>
+{% endblock %}

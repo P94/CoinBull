@@ -49,12 +49,13 @@ def login():
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
-        return redirect('/')
+        return redirect(url_for('index'))
+
     return render_template('login.html', title='Sign In', form=form)
 
-@app.route('/sorry')
-def page_not_here_yet():
-	return 'Sorry I have not made this page yet!'
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
 
 @app.route('/about')
 def about():

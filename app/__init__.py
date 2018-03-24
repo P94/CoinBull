@@ -3,31 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from modules import Currency, User
 from forms import LoginForm
 from flask_login import LoginManager
+from config import *
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 login = LoginManager(app)
 app.config.from_object('config')
 db = SQLAlchemy(app)
-
-## Configuration for what crypto currencies to track ##
-cryptos = {
-	'Bitcoin': {
-		'ticker': 'BTC',
-		'picture_url': 'bitcoin.png'
-		},
-	'Litecoin': {
-		'ticker': 'LTC',
-		'picture_url': 'litecoin.png'
-		},
-	'Ethereum': {
-		'ticker': 'ETH',
-		'picture_url': 'ether.png'
-		},
-	'Bitcoin Cash': {
-		'ticker': 'BCH',
-		'picture_url': 'bitcoin_cash.png'
-		},
-	}
 
 ## Home page that displays basic price information ##
 @app.route('/')

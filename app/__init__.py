@@ -1,8 +1,14 @@
 from flask import Flask, render_template
-from flask_login import LoginManager
+
+from flask.ext.sqlalchemy import SQLAlchemy
+
 import gdax
 
 app = Flask(__name__)
+
+app.config.from_object('config')
+
+db = SQLAlchemy(app)
 
 ## Configuration for what crypto currencies to track ##
 cryptos = {

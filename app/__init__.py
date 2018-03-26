@@ -1,20 +1,22 @@
 from flask import Flask, render_template, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from forms import LoginForm
-from flask_login import LoginManager
 from config import *
-from flask_login import current_user, login_user, logout_user
+from flask_login import LoginManager, login_required, current_user, login_user, logout_user
 from flask_migrate import Migrate
+from werkzeug.urls import url_parse
 
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
+login.login_view = 'login'
 
 from modules import Currency, User
 
 ## Home page that displays basic price information ##
+@app.route('/index')
 @app.route('/')
 def index():
 	crypto_objects = []
@@ -28,6 +30,11 @@ def index():
 		crypto_objects.append(crypto_object)
 	return render_template('index.html', crypto_objects=crypto_objects)
 
+@app.route('/dashboard')
+@login_required
+def dashboard():
+	return render_template('dashboard.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -39,7 +46,10 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+        	next_page = url_for('index')
+        return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')

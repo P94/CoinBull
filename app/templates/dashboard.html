@@ -1,7 +1,5 @@
 {% extends "layout.html" %}
 
 {% block body %}
-	{% if current_user.is_active %}
-		<h3>Welcome, {{ current_user.username }}</h3>
-	{% endif %}
+	<h3>Welcome, {{ user.username }}</h3>
 {% endblock %}

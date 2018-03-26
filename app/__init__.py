@@ -30,10 +30,11 @@ def index():
 		crypto_objects.append(crypto_object)
 	return render_template('index.html', crypto_objects=crypto_objects)
 
-@app.route('/dashboard')
+@app.route('/dashboard/<username>')
 @login_required
-def dashboard():
-	return render_template('dashboard.html')
+def dashboard(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('dashboard.html', user=user)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

@@ -12,16 +12,11 @@
     <!-- Latest compiled and minified CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
     <!-- Custom styles for this template -->
     <style>
-      body {
-        padding-top: 54px;
-      }
-      @media (min-width: 992px) {
-        body {
-          padding-top: 56px;
-        }
-      }
+
 
     </style>
   </head>
@@ -75,6 +70,10 @@
           {% block body %}{% endblock %}
         </div>
       </div>
+    </div>
+
+    <div class="footer">
+      <p>Contact <a href="mailto:patinopablo94@example.com?Subject=I%20Love%20CoinBull" target="_top">Pablo</a> with issues or comments</p>
     </div>
     
     <!-- Bootstrap core JavaScript -->

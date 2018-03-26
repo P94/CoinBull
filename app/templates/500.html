@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}Internal Server Error{% endblock %}
+{% block body %}
+<h1 class="text-danger">500</h1>
+    <h1>An unexpected error has occurred</h1>
+    <p>The administrator has been notified. Sorry for the inconvenience!</p>
+<form>
+  <input type="button" value="Go back!" onclick="history.back()" class="btn btn-secondary">
+</form>
+{% endblock %}

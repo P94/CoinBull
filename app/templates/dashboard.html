@@ -1,5 +1,9 @@
+
 {% extends "layout.html" %}
+
+{% if user == current_user %}
 
 {% block body %}
 	<h3>Welcome, {{ user.username }}</h3>
 {% endblock %}
+{% endif %}

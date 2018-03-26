@@ -1,15 +1,18 @@
 from flask import Flask, render_template, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
-from modules import Currency, User
 from forms import LoginForm
 from flask_login import LoginManager
 from config import *
+from flask_login import current_user, login_user, logout_user
 from flask_migrate import Migrate
 
 app = Flask(__name__)
-login = LoginManager(app)
 app.config.from_object('config')
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+login = LoginManager(app)
+
+from modules import Currency, User
 
 ## Home page that displays basic price information ##
 @app.route('/')
@@ -27,13 +30,22 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
-
     return render_template('login.html', title='Sign In', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 @app.errorhandler(404)
 def page_not_found(error):

@@ -3,7 +3,11 @@
 
 {% if crypto_objects %}
 	<div class="container">
-	<h3>Welcome, here are the stats for your crypto currencies.</h3>
+	{% if current_user.is_anonymous %}
+	<h3>Welcome, here are the crypto currency stats.</h3>
+	{% else %}
+	<h3>Welcome, {{ current_user.username }}, here are the statuses for your crypto currencies.</h3>
+	{% endif %r}
 	<div class="row">
 	{% for crypto_object in crypto_objects %}
 			<div class="col">

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect, url_for, request
+from flask import Flask, render_template, flash, redirect, url_for, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from config import *
 from flask_login import LoginManager, login_required, current_user, login_user, logout_user
@@ -36,6 +36,8 @@ def index():
 @app.route('/dashboard/<username>')
 @login_required
 def dashboard(username):
+    if current_user.username != username:
+        abort(401)
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('dashboard.html', user=user)
 

@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}Unauthorized{% endblock %}
+{% block body %}
+<h1 class="text-danger">401</h1>
+<h1>You do not have access to this page.</h1>
+<h2>Please verify you are logged in as the correct user.</h2>
+<form>
+  <input type="button" value="Go back!" onclick="history.back()" class="btn btn-secondary">
+</form>
+{% endblock %}

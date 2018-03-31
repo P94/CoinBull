@@ -29,3 +29,11 @@ body {
 .redtext {
     color: red;
 }
+
+.up {
+    color: green;
+}
+
+.down {
+    color: red;
+}

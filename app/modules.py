@@ -23,7 +23,7 @@ class Currency(object):
 		self.price = price_two_decimal
 
 	## Function to pull 24 hour statistics for a crypto currency ##
-	def get_42hr_stats(self):
+	def get_24hr_stats(self):
 		stats_24_hour = public_client.get_product_24hr_stats(self.usd_product)
 		self.volume_24hr = stats_24_hour.get("volume")[:-6]
 		self.high_24hr = stats_24_hour.get("high")[:-6]

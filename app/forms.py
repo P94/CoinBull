@@ -27,16 +27,12 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address')
 
-class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    submit = SubmitField('Submit')
-
-class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Repeat Password"})
+class SettingsForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
     submit = SubmitField('Submit')
 
     def __init__(self, original_username, *args, **kwargs):
-        super(EditProfileForm, self).__init__(*args, **kwargs)
+        super(SettingsForm, self).__init__(*args, **kwargs)
         self.original_username = original_username
 
     def validate_username(self, username):

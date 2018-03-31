@@ -16,7 +16,7 @@ login.login_view = 'login'
 
 from app.errors import not_found_error, internal_error
 from app.modules import Currency, User
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
+from app.forms import LoginForm, RegistrationForm, SettingsForm
 
 ## Home page that displays basic price information ##
 @app.route('/index')
@@ -80,7 +80,7 @@ def logout():
 @app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
-    form = EditProfileForm(current_user.username)
+    form = SettingsForm(current_user.username)
     if form.validate_on_submit():
         current_user.username = form.username.data
         db.session.commit()

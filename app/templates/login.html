@@ -2,26 +2,27 @@
 
 {% block body %}
 {% block content %}
-    <h1>Sign In</h1>
+<div class="medium-form">
+    <h1 class="display-3">Log In</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
+        <div class="form-group">
+            {{ form.username(class_="form-control", size=32) }}
             {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="redtext">{{ error }}</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
+        </div>
+        <div class="form-group">
+            {{ form.password(class_="form-control",size=32) }}
             {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="redtext">{{ error }}</span>
             {% endfor %}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
+        </div>
+        <div class="form-check">{{ form.remember_me(class_="form-check-input") }}
+        {{ form.remember_me.label(class_="form-check-label") }}</div>
+        <div>{{ form.submit(class_="btn btn-secondary") }}</div>
     </form>
     <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+</div>
 {% endblock %}
 {% endblock %}

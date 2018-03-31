@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% block content %}
+    <h1>Settings</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.username(class_="form-control medium-form", size=32) }}
+            {% for error in form.username.errors %}
+            <span class="redtext">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <p>{{ form.submit(class_="btn btn-secondary") }}</p>
+    </form>
+{% endblock %}
+{% endblock %}

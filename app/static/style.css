@@ -1,5 +1,8 @@
+
+
 body {
 	padding-top: 54px;
+    font-family: 'EB Garamond', serif;
 }
 
 @media (min-width: 992px) {
@@ -16,4 +19,13 @@ body {
     background-color: #212529;
     color: white;
     text-align: center;
+}
+
+.medium-form {
+    max-width: 300px;
+    margin: auto
+}
+
+.redtext {
+    color: red;
 }

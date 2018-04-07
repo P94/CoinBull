@@ -8,6 +8,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
+'''
+    def validate_username(self, username):
+        if username.data != username.data.lower():
+            raise ValidationError('Username must be lowercase')
+'''
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
@@ -21,6 +26,8 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Please use a different username')
+        if username.data != username.data.lower():
+            raise ValidationError('Username must consist of lowercase letters, numbers, and special characters.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()

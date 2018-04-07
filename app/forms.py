@@ -8,11 +8,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
-'''
+
     def validate_username(self, username):
         if username.data != username.data.lower():
             raise ValidationError('Username must be lowercase')
-'''
+
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
